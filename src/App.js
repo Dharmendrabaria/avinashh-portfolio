@@ -22,8 +22,8 @@ const InstallPrompt = () => {
     const handler = (e) => {
       e.preventDefault();
       setDeferredPrompt(e);
-      // Show prompt after a delay for better UX
-      setTimeout(() => setShowPrompt(true), 5000);
+      // Show prompt sooner
+      setShowPrompt(true);
     };
     window.addEventListener('beforeinstallprompt', handler);
     return () => window.removeEventListener('beforeinstallprompt', handler);
@@ -45,12 +45,12 @@ const InstallPrompt = () => {
   if (!showPrompt) return null;
 
   return (
-    <div className="install-prompt fade-in-section is-visible">
-      <div className="pwa-icon">📱</div>
-      <p><strong>Install Avinash's Portfolio</strong> for a better, app-like experience.</p>
+    <div className="install-prompt is-visible">
+      <div className="pwa-icon">✨</div>
+      <p><strong>Experience the Magic!</strong> Install this portfolio app for a faster & premium experience.</p>
       <div className="install-prompt-btns">
-        <button className="install-btn dismiss" onClick={handleDismiss}>Later</button>
-        <button className="install-btn confirm" onClick={handleInstall}>Install App</button>
+        <button className="install-btn dismiss" onClick={handleDismiss}>Not now</button>
+        <button className="install-btn confirm" onClick={handleInstall}>Install Now</button>
       </div>
     </div>
   );
@@ -64,14 +64,13 @@ function App() {
   // Initialize Lenis Smooth Scroll
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-      direction: 'vertical',
-      gestureDirection: 'vertical',
-      smooth: true,
-      mouseMultiplier: 1,
-      smoothTouch: false,
+      lerp: 0.1,
+      duration: 1.5,
+      smoothWheel: true,
+      wheelMultiplier: 1,
       touchMultiplier: 2,
+      normalizeWheel: true,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
     });
 
     function raf(time) {
@@ -81,40 +80,79 @@ function App() {
 
     requestAnimationFrame(raf);
 
-    return () => lenis.destroy();
-  }, []);
+    // Prevent scrolling while loading
+    if (loading) {
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.body.style.overflow = '';
+    }
+
+    return () => {
+      lenis.destroy();
+      document.body.style.overflow = '';
+    };
+  }, [loading]);
 
   useEffect(() => {
     let interval;
     if (progress < 100) {
       interval = setInterval(() => {
         setProgress(prev => {
-          const next = prev + Math.floor(Math.random() * 15) + 5;
+          const next = prev + Math.floor(Math.random() * 8) + 2;
           return next > 100 ? 100 : next;
         });
-      }, 150);
+      }, 100);
     } else {
-      setTimeout(() => setFadeOut(true), 400);
-      setTimeout(() => setLoading(false), 1200);
+      setTimeout(() => setFadeOut(true), 600);
+      setTimeout(() => setLoading(false), 1400);
     }
     return () => clearInterval(interval);
   }, [progress]);
 
-  if (loading) {
-    return (
-      <div className={`loading-screen ${fadeOut ? 'fade-out' : ''}`}>
-        <svg className="loading-logo-svg" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M50 85L85 25H65L50 51L35 25H15L50 85Z" fill="var(--accent-cyan)" />
-          <path d="M50 15L15 75H35L50 49L65 75H85L50 15Z" fill="var(--text-primary)" stroke="var(--bg-primary)" strokeWidth="4" />
-        </svg>
-        
-        <div style={{ fontFamily: 'var(--font-heading)', fontSize: '1.6rem', fontWeight: '800', letterSpacing: '6px', background: 'linear-gradient(135deg, var(--text-primary) 0%, var(--accent-cyan) 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', marginTop: '-10px' }}>AVINASH</div>
+  const loadingMessages = [
+    "Forging Innovation",
+    "Calibrating Aesthetics",
+    "Optimizing Experience",
+    "Pixel Perfection",
+    "Ready to Launch"
+  ];
 
-        <div className="loading-bar-wrap">
-          <div className="loading-bar" style={{ width: `${progress}%`, transition: 'width 0.2s ease-out' }}></div>
-        </div>
+  if (loading) {
+    const messageIndex = Math.min(Math.floor((progress / 100) * loadingMessages.length), loadingMessages.length - 1);
+    
+    return (
+      <div className={`loading-screen ${fadeOut ? 'curtain-exit' : ''}`}>
+        {/* Entrance Curtains */}
+        <div className="loader-curtain curtain-left"></div>
+        <div className="loader-curtain curtain-right"></div>
         
-        <div className="loading-counter">{progress}%</div>
+        <div className="loading-content">
+          <div className="logo-box">
+             <svg className="premium-loader-svg" viewBox="0 0 100 100">
+                <circle className="logo-ring" cx="50" cy="50" r="48" />
+                <path className="logo-path logo-a" d="M50 15L15 75H35L50 49L65 75H85L50 15Z" fill="var(--text-primary)" />
+                <path className="logo-path logo-v" d="M50 85L85 25H65L50 51L35 25H15L50 85Z" fill="var(--accent-cyan)" />
+             </svg>
+             <div className="logo-glow"></div>
+          </div>
+          
+          <div className="loading-brand-wrap">
+            <div className="loading-brand-glitch" data-text="AVINASH">AVINASH</div>
+            <div className="loading-sub-text">Digital Visionary</div>
+          </div>
+
+          <div className="loading-info-box">
+            <div className="loading-counter">
+              <span className="big-num">{progress}</span>
+              <span className="small-pct">%</span>
+            </div>
+            <div className="loading-status-msg">{loadingMessages[messageIndex]}</div>
+            <div className="loading-bar-container">
+              <div className="loading-bar-active" style={{ width: `${progress}%` }}></div>
+              <div className="loading-bar-bg"></div>
+            </div>
+          </div>
+        </div>
       </div>
     );
   }

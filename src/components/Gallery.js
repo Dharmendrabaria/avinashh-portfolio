@@ -42,7 +42,7 @@ const Gallery = () => {
   return (
     <section id="gallery" className="gallery-section">
       <div className="container">
-        <div className="section-header fade-in-section" ref={headerRef}>
+        <div className="section-header reveal slide-up" ref={headerRef}>
           <div className="section-tag" style={{ borderColor: 'rgba(247,37,133,0.25)', color: 'var(--accent-pink)', background: 'rgba(247,37,133,0.1)' }}>
             <FiImage size={14} />
             <span>Creative Shots</span>
@@ -52,20 +52,9 @@ const Gallery = () => {
             A masonry collection of UI screens, posters, logos, and daily design explorations.
           </p>
         </div>
-
-        <div className="gallery-masonry fade-in-section" ref={gridRef}>
+        <div className="gallery-masonry">
           {galleryItems.map((item, index) => (
-            <div 
-              key={item.id} 
-              className="gallery-item glass-card"
-              onClick={() => openLightbox(index)}
-              style={{ transitionDelay: `${index * 0.1}s` }}
-            >
-              <img src={item.src} alt={item.type} loading="lazy" />
-              <div className="gallery-overlay">
-                <span>{item.type}</span>
-              </div>
-            </div>
+            <GalleryItem key={item.id} item={item} index={index} onClick={() => openLightbox(index)} />
           ))}
         </div>
       </div>
@@ -94,6 +83,22 @@ const Gallery = () => {
         </div>
       )}
     </section>
+  );
+};
+
+const GalleryItem = ({ item, index, onClick }) => {
+  const ref = useFadeInOnScroll();
+  return (
+    <div 
+      className={`gallery-item glass-card reveal zoom-in delay-${(index % 6) + 1}`}
+      onClick={onClick}
+      ref={ref}
+    >
+      <img src={item.src} alt={item.type} loading="lazy" />
+      <div className="gallery-overlay">
+        <span>{item.type}</span>
+      </div>
+    </div>
   );
 };
 

@@ -6,30 +6,30 @@ import './Testimonials.css';
 const testimonials = [
   {
     id: 1,
-    name: 'Sarah Jenkins',
-    role: 'Marketing Director, Urban Gujarat',
-    text: "Avinash completely transformed our digital presence. His eye for detail and understanding of modern aesthetics is unmatched. A true professional.",
+    name: 'Suresh Patel',
+    role: 'Managing Director, Horizon Group',
+    text: "Avinash has an exceptional eye for design. He taken our brand to a whole new level with his creative vision. Truly a talented designer in Gujarat.",
+    rating: 5,
+    avatar: '👨‍💼',
+    color: '#06d6f7'
+  },
+  {
+    id: 2,
+    name: 'Priya Sharma',
+    role: 'Founder, Urban Aesthetics',
+    text: "Working with Avinash was an amazing experience. He delivered a clean, modern UI for our app that exceeded our expectations. Highly recommended!",
     rating: 5,
     avatar: '👩‍💼',
     color: '#8b5cf6'
   },
   {
-    id: 2,
-    name: 'David Chen',
-    role: 'Founder, EcoCraft',
-    text: "Working with Avinash was a breeze. He took our vague ideas and turned them into a stunning, cohesive brand identity. Highly recommended!",
+    id: 3,
+    name: 'Rajesh Shah',
+    role: 'Tech Lead, Digital Solutions',
+    text: "One of the best creative designers I've worked with. His work is pixel-perfect and always has a premium feel. His design thinking is top-notch.",
     rating: 5,
     avatar: '👨‍💻',
     color: '#06d6a0'
-  },
-  {
-    id: 3,
-    name: 'Emily Watson',
-    role: 'Product Manager, FinTech Solutions',
-    text: "Rarely do you find a designer who understands both beautiful aesthetics and functional UX. Avinash delivered a dashboard that our users actually love.",
-    rating: 5,
-    avatar: '👩‍🔬',
-    color: '#06d6f7'
   }
 ];
 
@@ -40,7 +40,7 @@ const Testimonials = () => {
   return (
     <section id="testimonials" className="test-section">
       <div className="container">
-        <div className="section-header fade-in-section center" ref={headerRef} style={{ textAlign: 'center', marginBottom: '80px' }}>
+        <div className="section-header reveal slide-up" ref={headerRef} style={{ textAlign: 'center', marginBottom: '80px' }}>
           <div className="section-tag" style={{ borderColor: 'rgba(255,209,102,0.25)', color: 'var(--accent-gold)', background: 'rgba(255,209,102,0.1)', margin: '0 auto 22px' }}>
             <FiMessageSquare size={14} />
             <span>Client Kind Words</span>
@@ -51,35 +51,41 @@ const Testimonials = () => {
           </p>
         </div>
 
-        <div className="test-grid fade-in-section" ref={gridRef}>
+        <div className="test-grid">
           {testimonials.map((test, index) => (
-            <div 
-              key={test.id} 
-              className="test-card glass-card"
-              style={{ transitionDelay: `${0.15 * index}s` }}
-            >
-              <div className="quote-mark" style={{ color: test.color }}>&ldquo;</div>
-              <div className="stars">
-                {[...Array(test.rating)].map((_, i) => (
-                  <FiStar key={i} size={16} fill="var(--accent-gold)" color="var(--accent-gold)" />
-                ))}
-              </div>
-              <p className="test-text">{test.text}</p>
-              
-              <div className="test-author">
-                <div className="author-avatar" style={{ border: `2px solid ${test.color}` }}>
-                  {test.avatar}
-                </div>
-                <div className="author-info">
-                  <h4 className="author-name">{test.name}</h4>
-                  <span className="author-role">{test.role}</span>
-                </div>
-              </div>
-            </div>
+            <TestimonialCard key={test.id} test={test} index={index} />
           ))}
         </div>
       </div>
     </section>
+  );
+};
+
+const TestimonialCard = ({ test, index }) => {
+  const ref = useFadeInOnScroll();
+  return (
+    <div 
+      className={`test-card glass-card reveal zoom-in delay-${(index % 4) + 1}`}
+      ref={ref}
+    >
+      <div className="quote-mark" style={{ color: test.color }}>&ldquo;</div>
+      <div className="stars">
+        {[...Array(test.rating)].map((_, i) => (
+          <FiStar key={i} size={16} fill="var(--accent-gold)" color="var(--accent-gold)" />
+        ))}
+      </div>
+      <p className="test-text">{test.text}</p>
+      
+      <div className="test-author">
+        <div className="author-avatar" style={{ border: `2px solid ${test.color}` }}>
+          {test.avatar}
+        </div>
+        <div className="author-info">
+          <h4 className="author-name">{test.name}</h4>
+          <span className="author-role">{test.role}</span>
+        </div>
+      </div>
+    </div>
   );
 };
 

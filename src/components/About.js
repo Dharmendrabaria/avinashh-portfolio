@@ -19,7 +19,7 @@ const timelineData = [
   {
     year: '2025',
     title: 'Built Multiple Projects',
-    desc: 'Delivered 50+ design projects including apps, websites, brand identities, and social media campaigns.',
+    desc: 'Delivered 200+ projects including apps, websites, brand identities, and social media campaigns.',
     icon: '🚀',
   },
 ];
@@ -32,7 +32,7 @@ const About = () => {
   return (
     <section id="about" className="about-section">
       <div className="container">
-        <div className="section-header fade-in-section" ref={headerRef}>
+        <div className="section-header reveal slide-up" ref={headerRef}>
           <div className="section-tag">
             <FiAward size={14} />
             <span>About Me</span>
@@ -45,7 +45,7 @@ const About = () => {
 
         <div className="about-grid">
           {/* Profile Card */}
-          <div className="profile-card glass-card fade-in-section" ref={profileRef}>
+          <div className="profile-card glass-card reveal slide-right" ref={profileRef}>
             <div className="profile-img-wrap">
               <img src="/avinash_profile.jpeg" alt="Avinash" className="profile-img" />
               <div className="profile-status">
@@ -83,7 +83,7 @@ const About = () => {
           </div>
 
           {/* About Text + Timeline */}
-          <div className="about-content fade-in-section" ref={textRef}>
+          <div className="about-content reveal slide-left" ref={textRef}>
             <p className="about-text dropcap">
               Avinash is a <strong>passionate creative designer</strong> with two years of hands-on experience in crafting visually engaging and user-friendly designs. Currently working at <strong>Urban Gujarat</strong> while pursuing a <strong>Bachelor of Computer Applications</strong> from M.B Patel College, he focuses on building modern digital experiences with premium aesthetics and strong usability.
             </p>

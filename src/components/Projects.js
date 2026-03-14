@@ -75,7 +75,7 @@ const Projects = () => {
   return (
     <section id="projects" className="projects-section">
       <div className="container">
-        <div className="section-header fade-in-section" ref={headerRef}>
+        <div className="section-header reveal slide-up" ref={headerRef}>
           <div className="section-tag">
             <FiFolder size={14} />
             <span>Portfolio</span>
@@ -86,7 +86,7 @@ const Projects = () => {
           </p>
         </div>
 
-        <div className="projects-grid fade-in-section" ref={gridRef}>
+        <div className="projects-grid reveal zoom-in" ref={gridRef}>
           {projects.map((project, index) => (
             <Tilt options={defaultTiltOptions} key={project.id}>
               <div 

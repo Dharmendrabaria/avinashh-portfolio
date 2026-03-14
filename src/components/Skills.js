@@ -37,7 +37,7 @@ const CircularProgress = ({ percent, color, delay }) => {
   const strokeDashoffset = circumference - (percent / 100) * circumference;
 
   return (
-    <div className="circular-progress-wrap fade-in-section" ref={ref} style={{ transitionDelay: `${delay}s` }}>
+    <div className="circular-progress-wrap reveal slide-up" ref={ref} style={{ transitionDelay: `${delay}s` }}>
       <svg className="circular-svg" width="120" height="120">
         <circle className="circle-bg" cx="60" cy="60" r="45" strokeWidth="6" />
         <circle 
@@ -60,7 +60,7 @@ const ToolCard = ({ tool, index }) => {
   const ref = useFadeInOnScroll();
   return (
     <Tilt options={defaultTiltOptions}>
-      <div className="tool-card glass-card fade-in-section" ref={ref} style={{ transitionDelay: `${0.1 * index}s`, height: '100%' }}>
+      <div className={`tool-card glass-card reveal slide-up delay-${index + 1}`} ref={ref} style={{ height: '100%' }}>
         <CircularProgress percent={tool.percent} color="var(--accent-purple)" delay={0} />
         <h4 className="tool-name">{tool.icon} {tool.name}</h4>
         <span className="tool-level">{tool.level}</span>
@@ -77,7 +77,7 @@ const Skills = () => {
     <section id="skills" className="skills-section">
       <div className="container">
         
-        <div className="section-header fade-in-section" ref={headerRef}>
+        <div className="section-header reveal slide-up" ref={headerRef}>
           <div className="section-tag">
             <FiTarget size={14} />
             <span>My Arsenal</span>
@@ -97,7 +97,7 @@ const Skills = () => {
           </div>
 
           {/* Linear Skills (Disciplines) */}
-          <div className="skills-linear-list fade-in-section" ref={barsRef}>
+          <div className="skills-linear-list reveal slide-left delay-3" ref={barsRef}>
             <h3 className="linear-skills-title">Core Disciplines</h3>
             {designSkills.map((skill, index) => (
               <div key={index} className="skill-bar-item">

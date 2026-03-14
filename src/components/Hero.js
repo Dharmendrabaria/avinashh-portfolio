@@ -35,19 +35,35 @@ const Hero = () => {
             },
             particles: {
               color: { value: ["#06d6f7", "#6200ea"] },
-              links: { color: "random", distance: 120, enable: true, opacity: 0.1, width: 1 },
-              move: { direction: "none", enable: true, outModes: { default: "bounce" }, random: false, speed: 1, straight: false },
-              number: { density: { enable: true, area: 800 }, value: 40 }, /* Reduced particle count */
+              links: { 
+                color: "random", 
+                distance: 120, 
+                enable: true, 
+                opacity: 0.1, 
+                width: 1 
+              },
+              move: { 
+                direction: "none", 
+                enable: true, 
+                outModes: { default: "bounce" }, 
+                random: false, 
+                speed: 1, 
+                straight: false 
+              },
+              number: { 
+                density: { enable: true, area: 1200 }, 
+                value: 120 
+              },
               opacity: { value: 0.3 },
               shape: { type: "circle" },
               size: { value: { min: 1, max: 2 } },
             },
-            detectRetina: true,
+            detectRetina: false,
           }}
           className="interactive-particles"
         />
-        <div className="hero-glow-orb purple-orb" style={{opacity: 0.5}}></div>
-        <div className="hero-glow-orb cyan-orb" style={{opacity: 0.5}}></div>
+        <div className="hero-glow-orb purple-orb" style={{ opacity: 0.5 }}></div>
+        <div className="hero-glow-orb cyan-orb" style={{ opacity: 0.5 }}></div>
       </div>
 
       <div className="hero-content">
@@ -97,7 +113,7 @@ const Hero = () => {
                 <span className="stat-label">Years Exp.</span>
               </div>
               <div className="hero-stat-card">
-                <span className="stat-num">50+</span>
+                <span className="stat-num">200+</span>
                 <span className="stat-label">Projects</span>
               </div>
               <div className="hero-stat-card">
@@ -175,26 +191,26 @@ const Hero = () => {
               <img src="/avinash_profile.jpeg" alt="Avinash" className="hero-img-inner" />
             </div>
             <div className="hero-image-border"></div>
-            
+
             {/* Custom floating pills */}
             <motion.div className="hero-pill pill-1"
               animate={{ y: [0, -15, 0], rotate: [-2, 2, -2] }}
               transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}>
-              <div className="pill-color" style={{background: 'var(--accent-purple)'}}></div>
+              <div className="pill-color" style={{ background: 'var(--accent-purple)' }}></div>
               <span>UI/UX Master</span>
             </motion.div>
 
             <motion.div className="hero-pill pill-2"
               animate={{ y: [0, 15, 0], rotate: [2, -2, 2] }}
               transition={{ repeat: Infinity, duration: 5, ease: 'easeInOut', delay: 0.5 }}>
-              <div className="pill-color" style={{background: 'var(--accent-cyan)'}}></div>
+              <div className="pill-color" style={{ background: 'var(--accent-cyan)' }}></div>
               <span>Figma Pro</span>
             </motion.div>
 
             <motion.div className="hero-pill pill-3"
               animate={{ y: [0, -10, 0], x: [0, 5, 0] }}
               transition={{ repeat: Infinity, duration: 4.5, ease: 'easeInOut', delay: 1 }}>
-              <div className="pill-color" style={{background: 'var(--accent-pink)'}}></div>
+              <div className="pill-color" style={{ background: 'var(--accent-pink)' }}></div>
               <span>Visual Design</span>
             </motion.div>
           </div>
@@ -204,7 +220,8 @@ const Hero = () => {
       <motion.button
         className="scroll-indicator"
         onClick={() => scrollTo('about')}
-        animate={{ y: [0, 10, 0] }}
+        initial={{ x: "-50%", y: 0 }}
+        animate={{ x: "-50%", y: [0, 10, 0] }}
         transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
       >
         <FiChevronDown size={28} />

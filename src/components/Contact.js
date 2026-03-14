@@ -55,7 +55,7 @@ ${formData.name}`;
     <section id="contact" className="contact-section">
       <div className="container">
         
-        <div className="section-header fade-in-section center" ref={headerRef} style={{ textAlign: 'center', marginBottom: '80px' }}>
+        <div className="section-header reveal slide-up" ref={headerRef} style={{ textAlign: 'center', marginBottom: '80px' }}>
           <div className="section-tag" style={{ borderColor: 'rgba(6,214,160,0.25)', color: 'var(--accent-green)', background: 'rgba(6,214,160,0.1)', margin: '0 auto 22px' }}>
             <FiMail size={14} />
             <span>Get in Touch</span>
@@ -66,9 +66,9 @@ ${formData.name}`;
           </p>
         </div>
 
-        <div className="contact-wrapper fade-in-section" ref={formRef}>
+        <div className="contact-wrapper">
           {/* Quick Connect Cards */}
-          <div className="quick-connect">
+          <div className="quick-connect reveal slide-right delay-1" ref={formRef}>
             <h3 className="contact-heading">Direct Channels</h3>
             
             <a href="https://wa.me/918347717938" target="_blank" rel="noreferrer" className="contact-card whatsapp">
@@ -79,11 +79,11 @@ ${formData.name}`;
               </div>
             </a>
 
-            <a href="mailto:avinash@example.com" className="contact-card email">
+            <a href="mailto:ap2528970@gmail.com" className="contact-card email">
               <div className="c-icon"><FiMail size={28} /></div>
               <div className="c-info">
                 <h4>Email</h4>
-                <span>avinash@example.com</span>
+                <span>ap2528970@gmail.com</span>
               </div>
             </a>
 
@@ -97,7 +97,7 @@ ${formData.name}`;
           </div>
 
           {/* Contact Form */}
-          <div className="contact-form-container glass-card">
+          <div className="contact-form-container glass-card reveal slide-left delay-2">
             <h3 className="contact-heading">Send a Message</h3>
             <form onSubmit={handleSubmit} className="contact-form">
               <div className="input-group">

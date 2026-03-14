@@ -26,7 +26,10 @@ export const useFadeInOnScroll = () => {
           entry.target.classList.add('is-visible');
         }
       },
-      { threshold: 0.12 }
+      { 
+        threshold: 0.15,
+        rootMargin: '0px 0px -50px 0px' 
+      }
     );
     if (ref.current) observer.observe(ref.current);
     return () => observer.disconnect();

@@ -1,6 +1,6 @@
 .about-section { background: var(--bg-secondary); }
 
-.section-header { margin-bottom: 70px; }
+/* Section header handled globally in index.css */
 
 .about-grid {
   display: grid;

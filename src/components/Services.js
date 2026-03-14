@@ -40,7 +40,7 @@ const Services = () => {
   return (
     <section id="services" className="services-section">
       <div className="container">
-        <div className="section-header fade-in-section" ref={headerRef}>
+        <div className="section-header reveal slide-up" ref={headerRef}>
           <div className="section-tag" style={{ borderColor: 'rgba(6,214,247,0.25)', color: 'var(--accent-cyan)', background: 'rgba(6,214,247,0.1)' }}>
             <FiLayers size={14} />
             <span>Specializations</span>
@@ -72,10 +72,10 @@ const ServiceCard = ({ service, index }) => {
 
   return (
     <div 
-      className="service-card fade-in-section" 
+      className={`service-card reveal slide-up delay-${index + 1}`} 
       ref={ref}
       onMouseMove={handleMouseMove}
-      style={{ transitionDelay: `${0.1 * index}s`, background: service.gradient }}
+      style={{ background: service.gradient }}
     >
       <div 
         className="service-spotlight" 
