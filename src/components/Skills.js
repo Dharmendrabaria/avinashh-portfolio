@@ -1,20 +1,8 @@
 import React from 'react';
 import { FiTarget } from 'react-icons/fi';
-import { Tilt } from 'react-tilt';
 import { useFadeInOnScroll } from '../context/ThemeContext';
 import './Skills.css';
 
-const defaultTiltOptions = {
-	reverse:        false,
-	max:            15,
-	perspective:    1000,
-	scale:          1.05,
-	speed:          1000,
-	transition:     true,
-	axis:           null,
-	reset:          true,
-	easing:         "cubic-bezier(.03,.98,.52,.99)",
-};
 
 const designSkills = [
   { name: 'UI/UX Design', percent: 95, color: '#8b5cf6' },
@@ -46,7 +34,6 @@ const CircularProgress = ({ percent, color, delay }) => {
           strokeDasharray={circumference}
           strokeDashoffset={strokeDashoffset}
           stroke={color}
-          style={{ filter: `drop-shadow(0 0 10px ${color}80)` }}
         />
       </svg>
       <div className="circular-value" style={{ color: color }}>
@@ -59,13 +46,11 @@ const CircularProgress = ({ percent, color, delay }) => {
 const ToolCard = ({ tool, index }) => {
   const ref = useFadeInOnScroll();
   return (
-    <Tilt options={defaultTiltOptions}>
-      <div className={`tool-card glass-card reveal slide-up delay-${index + 1}`} ref={ref} style={{ height: '100%' }}>
-        <CircularProgress percent={tool.percent} color="var(--accent-purple)" delay={0} />
-        <h4 className="tool-name">{tool.icon} {tool.name}</h4>
-        <span className="tool-level">{tool.level}</span>
-      </div>
-    </Tilt>
+    <div className={`tool-card glass-card reveal slide-up delay-${index + 1}`} ref={ref} style={{ height: '100%' }}>
+      <CircularProgress percent={tool.percent} color="var(--accent-purple)" delay={0} />
+      <h4 className="tool-name">{tool.icon} {tool.name}</h4>
+      <span className="tool-level">{tool.level}</span>
+    </div>
   );
 };
 
@@ -77,13 +62,13 @@ const Skills = () => {
     <section id="skills" className="skills-section">
       <div className="container">
         
-        <div className="section-header reveal slide-up" ref={headerRef}>
-          <div className="section-tag">
+        <div className="section-header reveal slide-up is-visible" ref={headerRef} style={{ textAlign: 'center', marginBottom: '60px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div className="section-tag" style={{ margin: '0 auto 22px' }}>
             <FiTarget size={14} />
             <span>My Arsenal</span>
           </div>
-          <h2 className="section-title">Design <span className="gradient-text">Excellence</span></h2>
-          <p className="section-subtitle">
+          <h2 className="section-title" style={{ textAlign: 'center' }}>Design <span className="gradient-text">Excellence</span></h2>
+          <p className="section-subtitle" style={{ margin: '0 auto', textAlign: 'center' }}>
             Tools and techniques I use to translate concepts into pixel-perfect realities.
           </p>
         </div>

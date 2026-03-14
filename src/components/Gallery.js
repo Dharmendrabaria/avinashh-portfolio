@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { FiImage, FiX, FiChevronLeft, FiChevronRight } from 'react-icons/fi';
 import { useFadeInOnScroll } from '../context/ThemeContext';
 import './Gallery.css';
@@ -42,12 +43,14 @@ const Gallery = () => {
   return (
     <section id="gallery" className="gallery-section">
       <div className="container">
-        <div className="section-header reveal slide-up" ref={headerRef}>
+        <div className="section-header is-visible" style={{ marginBottom: '60px' }}>
           <div className="section-tag" style={{ borderColor: 'rgba(247,37,133,0.25)', color: 'var(--accent-pink)', background: 'rgba(247,37,133,0.1)' }}>
             <FiImage size={14} />
             <span>Creative Shots</span>
           </div>
-          <h2 className="section-title">Visual <span className="gradient-text" style={{background: 'linear-gradient(135deg, var(--accent-pink), var(--accent-purple))', WebkitBackgroundClip: 'text'}}>Gallery</span></h2>
+          <h2 className="section-title">
+            Visual <span className="gradient-text" style={{background: 'linear-gradient(135deg, var(--accent-pink), var(--accent-purple))', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent'}}>Gallery</span>
+          </h2>
           <p className="section-subtitle">
             A masonry collection of UI screens, posters, logos, and daily design explorations.
           </p>
@@ -59,7 +62,7 @@ const Gallery = () => {
         </div>
       </div>
 
-      {selectedImage && (
+      {selectedImage && typeof document !== 'undefined' && createPortal(
         <div className="lightbox" onClick={closeLightbox}>
           <button className="lightbox-close" onClick={closeLightbox}>
             <FiX size={32} />
@@ -73,6 +76,7 @@ const Gallery = () => {
             src={selectedImage.src} 
             alt={selectedImage.type} 
             className="lightbox-image" 
+            decoding="async"
             onClick={(e) => e.stopPropagation()} 
           />
           <div className="lightbox-caption">{selectedImage.type}</div>
@@ -80,7 +84,8 @@ const Gallery = () => {
           <button className="lightbox-nav next" onClick={nextImage}>
             <FiChevronRight size={40} />
           </button>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );
@@ -94,7 +99,7 @@ const GalleryItem = ({ item, index, onClick }) => {
       onClick={onClick}
       ref={ref}
     >
-      <img src={item.src} alt={item.type} loading="lazy" />
+      <img src={item.src} alt={item.type} loading="lazy" decoding="async" />
       <div className="gallery-overlay">
         <span>{item.type}</span>
       </div>

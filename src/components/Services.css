@@ -1,4 +1,8 @@
-.services-section { background: var(--bg-secondary); }
+.services-section { 
+  background: var(--bg-secondary);
+  content-visibility: auto;
+  contain-intrinsic-size: 0 700px;
+}
 
 .services-grid {
   display: grid;
@@ -13,15 +17,15 @@
   border-radius: 20px;
   padding: 40px;
   overflow: hidden;
-  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease;
   cursor: pointer;
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  will-change: transform;
 }
 .service-card:hover {
   transform: translateY(-8px);
   border-color: rgba(255,255,255,0.15);
-  box-shadow: 0 20px 40px rgba(0,0,0,0.5);
 }
 
 .service-spotlight {

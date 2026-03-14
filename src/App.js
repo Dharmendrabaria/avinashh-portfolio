@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ThemeProvider } from './context/ThemeContext';
-import Lenis from '@studio-freight/lenis';
+// Lenis removed — replaced with native CSS scroll-behavior for better performance
 import Cursor from './components/Cursor';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -61,34 +61,15 @@ function App() {
   const [progress, setProgress] = useState(0);
   const [fadeOut, setFadeOut] = useState(false);
 
-  // Initialize Lenis Smooth Scroll
+  // Native CSS smooth scroll instead of Lenis RAF loop
   useEffect(() => {
-    const lenis = new Lenis({
-      lerp: 0.1,
-      duration: 1.5,
-      smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
-      normalizeWheel: true,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-    });
-
-    function raf(time) {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
-    }
-
-    requestAnimationFrame(raf);
-
-    // Prevent scrolling while loading
+    document.documentElement.style.scrollBehavior = 'smooth';
     if (loading) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = '';
     }
-
     return () => {
-      lenis.destroy();
       document.body.style.overflow = '';
     };
   }, [loading]);
@@ -98,13 +79,13 @@ function App() {
     if (progress < 100) {
       interval = setInterval(() => {
         setProgress(prev => {
-          const next = prev + Math.floor(Math.random() * 8) + 2;
+          const next = prev + Math.floor(Math.random() * 15) + 5;
           return next > 100 ? 100 : next;
         });
-      }, 100);
+      }, 150);
     } else {
-      setTimeout(() => setFadeOut(true), 600);
-      setTimeout(() => setLoading(false), 1400);
+      setTimeout(() => setFadeOut(true), 400);
+      setTimeout(() => setLoading(false), 1000);
     }
     return () => clearInterval(interval);
   }, [progress]);

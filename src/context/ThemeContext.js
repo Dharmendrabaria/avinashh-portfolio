@@ -24,15 +24,20 @@ export const useFadeInOnScroll = () => {
       ([entry]) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
+          // Important: Stop observing once visible to save CPU
+          observer.unobserve(entry.target);
         }
       },
       { 
-        threshold: 0.15,
-        rootMargin: '0px 0px -50px 0px' 
+        threshold: 0.1,
+        rootMargin: '50px 0px 50px 0px' 
       }
     );
     if (ref.current) observer.observe(ref.current);
-    return () => observer.disconnect();
+    return () => {
+      if (ref.current) observer.unobserve(ref.current);
+      observer.disconnect();
+    };
   }, []);
   return ref;
 };

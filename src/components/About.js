@@ -32,13 +32,13 @@ const About = () => {
   return (
     <section id="about" className="about-section">
       <div className="container">
-        <div className="section-header reveal slide-up" ref={headerRef}>
-          <div className="section-tag">
+        <div className="section-header reveal slide-up is-visible" ref={headerRef} style={{ textAlign: 'center', marginBottom: '60px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div className="section-tag" style={{ margin: '0 auto 22px' }}>
             <FiAward size={14} />
             <span>About Me</span>
           </div>
-          <h2 className="section-title">The Story Behind <span className="gradient-text">The Designer</span></h2>
-          <p className="section-subtitle">
+          <h2 className="section-title" style={{ textAlign: 'center' }}>The Story Behind <span className="gradient-text">The Designer</span></h2>
+          <p className="section-subtitle" style={{ margin: '0 auto', textAlign: 'center' }}>
             Passionate about turning ideas into stunning visual experiences
           </p>
         </div>
@@ -47,7 +47,7 @@ const About = () => {
           {/* Profile Card */}
           <div className="profile-card glass-card reveal slide-right" ref={profileRef}>
             <div className="profile-img-wrap">
-              <img src="/avinash_profile.jpeg" alt="Avinash" className="profile-img" />
+              <img src="/avinash_profile.jpeg" alt="Avinash" className="profile-img" loading="lazy" decoding="async" />
               <div className="profile-status">
                 <span className="status-dot" />
                 Available for work

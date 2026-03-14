@@ -2,6 +2,8 @@
   background: var(--bg-secondary); 
   position: relative;
   overflow: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 600px;
 }
 
 .test-section::after {
@@ -40,7 +42,8 @@
   border: 1px solid var(--border-color);
   border-radius: 24px;
   overflow: hidden;
-  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.4s ease;
+  will-change: transform;
 }
 
 .test-card:hover {
@@ -59,7 +62,7 @@
   opacity: 0.08;
   z-index: 0;
   pointer-events: none;
-  filter: blur(1px);
+  /* filter:blur removed — causes repaint per element */
 }
 
 .stars { 

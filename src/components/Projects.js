@@ -1,20 +1,9 @@
 import React, { useState } from 'react';
+import { createPortal } from 'react-dom';
 import { FiFolder, FiX, FiExternalLink, FiArrowRight } from 'react-icons/fi';
-import { Tilt } from 'react-tilt';
 import { useFadeInOnScroll } from '../context/ThemeContext';
 import './Projects.css';
 
-const defaultTiltOptions = {
-	reverse:        false,
-	max:            15,
-	perspective:    1000,
-	scale:          1.02,
-	speed:          1000,
-	transition:     true,
-	axis:           null,
-	reset:          true,
-	easing:         "cubic-bezier(.03,.98,.52,.99)",
-};
 
 const projects = [
   {
@@ -75,27 +64,30 @@ const Projects = () => {
   return (
     <section id="projects" className="projects-section">
       <div className="container">
-        <div className="section-header reveal slide-up" ref={headerRef}>
-          <div className="section-tag">
+        <div className="section-header reveal slide-up is-visible" ref={headerRef} style={{ textAlign: 'center', marginBottom: '60px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+          <div className="section-tag" style={{ margin: '0 auto 22px' }}>
             <FiFolder size={14} />
             <span>Portfolio</span>
           </div>
-          <h2 className="section-title">Featured <span className="gradient-text">Projects</span></h2>
-          <p className="section-subtitle">
+          <h2 className="section-title" style={{ textAlign: 'center' }}>Featured <span className="gradient-text">Projects</span></h2>
+          <p className="section-subtitle" style={{ margin: '0 auto', textAlign: 'center' }}>
             A selection of my best work across UI/UX, branding, and visual design.
           </p>
         </div>
 
         <div className="projects-grid reveal zoom-in" ref={gridRef}>
           {projects.map((project, index) => (
-            <Tilt options={defaultTiltOptions} key={project.id}>
+            <div
+              key={project.id}
+              style={{ height: '100%' }}
+            >
               <div 
                 className="project-card"
                 onClick={() => setSelectedProject(project)}
                 style={{ transitionDelay: `${0.1 * index}s`, height: '100%' }}
               >
                 <div className="project-image-wrap">
-                  <img src={project.image} alt={project.title} className="project-image" />
+                  <img src={project.image} alt={project.title} className="project-image" loading="lazy" decoding="async" />
                   <div className="project-overlay" style={{ background: `linear-gradient(to top, ${project.color}E6, rgba(0,0,0,0.2))` }}>
                     <div className="project-view-btn">View Case Study <FiArrowRight /></div>
                   </div>
@@ -110,19 +102,19 @@ const Projects = () => {
                   </div>
                 </div>
               </div>
-            </Tilt>
+            </div>
           ))}
         </div>
       </div>
 
-      {selectedProject && (
+      {selectedProject && typeof document !== 'undefined' && createPortal(
         <div className="modal-backdrop" onClick={() => setSelectedProject(null)}>
+          <button className="modal-close" onClick={() => setSelectedProject(null)}>
+            <FiX size={28} />
+          </button>
           <div className="modal-content" onClick={e => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setSelectedProject(null)}>
-              <FiX size={24} />
-            </button>
             <div className="modal-hero">
-              <img src={selectedProject.image} alt={selectedProject.title} className="modal-image" />
+              <img src={selectedProject.image} alt={selectedProject.title} className="modal-image" decoding="async" />
               <div className="modal-hero-overlay" style={{ background: `linear-gradient(to right, ${selectedProject.color}CC, transparent)` }} />
             </div>
             
@@ -151,7 +143,8 @@ const Projects = () => {
               </a>
             </div>
           </div>
-        </div>
+        </div>,
+        document.body
       )}
     </section>
   );

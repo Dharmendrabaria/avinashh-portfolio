@@ -2,16 +2,21 @@
   background: var(--bg-primary);
   position: relative;
   overflow: hidden;
+  content-visibility: auto;
+  contain-intrinsic-size: 0 700px;
 }
 
 .contact-wrapper {
   display: grid;
   grid-template-columns: 1fr 1.5fr;
-  gap: 80px;
-  align-items: stretch;
+  gap: 60px;
+  align-items: start;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
 }
-@media (max-width: 900px) {
-  .contact-wrapper { grid-template-columns: 1fr; gap: 50px; }
+@media (max-width: 1024px) {
+  .contact-wrapper { grid-template-columns: 1fr; gap: 40px; }
 }
 
 .contact-heading {

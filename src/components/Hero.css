@@ -32,24 +32,19 @@
 .hero-glow-orb {
   position: absolute;
   border-radius: 50%;
-  filter: blur(140px);
-  opacity: 0.15;
+  opacity: 0.12;
+  /* Removed heavy filter:blur and continuous animation */
+  will-change: auto;
 }
 .purple-orb {
-  width: 600px; height: 600px;
-  background: var(--accent-cyan);
+  width: 500px; height: 500px;
+  background: radial-gradient(circle, var(--accent-cyan) 0%, transparent 70%);
   top: 10%; left: 0%;
-  animation: floatOrb 20s ease-in-out infinite alternate;
 }
 .cyan-orb {
-  width: 500px; height: 500px;
-  background: var(--accent-purple);
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, var(--accent-purple) 0%, transparent 70%);
   bottom: 0px; right: 10%;
-  animation: floatOrb 25s ease-in-out infinite alternate-reverse;
-}
-@keyframes floatOrb {
-  0% { transform: translate(0, 0); }
-  100% { transform: translate(50px, -50px); }
 }
 
 .hero-content {
@@ -205,13 +200,8 @@
   background: conic-gradient(from 0deg, var(--accent-purple), var(--accent-cyan), var(--accent-pink), var(--accent-purple));
   clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%);
   z-index: 1;
-  animation: rotateGradient 4s linear infinite;
-  opacity: 0.5;
-  filter: blur(8px);
-}
-@keyframes rotateGradient {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  opacity: 0.4;
+  /* Removed rotating animation and blur — major GPU saver */
 }
 .hero-img-inner {
   width: 100%;
@@ -236,18 +226,25 @@
   font-size: 0.85rem;
   font-weight: 700;
   color: var(--text-primary);
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(8px);
   white-space: nowrap;
-  box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+  /* Simple CSS animation instead of framer-motion JS */
+  animation: pillFloat 4s ease-in-out infinite alternate;
+  will-change: transform;
 }
 .pill-color {
   width: 12px; height: 12px;
   border-radius: 50%;
   box-shadow: inset -2px -2px 4px rgba(0,0,0,0.3);
 }
-.pill-1 { top: 15%; right: -50px; }
-.pill-2 { bottom: 25%; right: -30px; }
-.pill-3 { top: 50%; left: -60px; }
+.pill-1 { top: 15%; right: -50px; animation-delay: 0s; }
+.pill-2 { bottom: 25%; right: -30px; animation-delay: 0.8s; animation-duration: 5s; }
+.pill-3 { top: 50%; left: -60px; animation-delay: 0.4s; animation-duration: 4.5s; }
+
+@keyframes pillFloat {
+  0% { transform: translate3d(0, 0, 0); }
+  100% { transform: translate3d(0, -14px, 0); }
+}
 
 .scroll-indicator {
   position: absolute;
@@ -266,6 +263,17 @@
   height: 50px;
 }
 .scroll-indicator:hover { color: var(--accent-cyan); }
+
+.scroll-bounce {
+  animation: scrollBounce 2s ease-in-out infinite;
+  will-change: transform;
+  transform: translateX(-50%);
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(10px); }
+}
 
 @media (max-width: 1024px) {
   .hero-content { flex-direction: column; text-align: center; gap: 40px; }

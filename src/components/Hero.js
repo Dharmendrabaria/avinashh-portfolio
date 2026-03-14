@@ -28,18 +28,17 @@ const Hero = () => {
           init={particlesInit}
           options={{
             fullScreen: { enable: false, zIndex: 0 },
-            fpsLimit: 60, /* Lowered for better performance */
+            fpsLimit: 40,
             interactivity: {
-              events: { onClick: { enable: true, mode: "push" }, onHover: { enable: true, mode: "repulse" }, resize: true },
-              modes: { push: { quantity: 2 }, repulse: { distance: 80, duration: 0.4 } },
+              events: { onClick: { enable: false }, onHover: { enable: false }, resize: false },
             },
             particles: {
               color: { value: ["#06d6f7", "#6200ea"] },
               links: { 
                 color: "random", 
-                distance: 120, 
+                distance: 100, 
                 enable: true, 
-                opacity: 0.1, 
+                opacity: 0.08, 
                 width: 1 
               },
               move: { 
@@ -47,14 +46,14 @@ const Hero = () => {
                 enable: true, 
                 outModes: { default: "bounce" }, 
                 random: false, 
-                speed: 1, 
+                speed: 0.6, 
                 straight: false 
               },
               number: { 
-                density: { enable: true, area: 1200 }, 
-                value: 120 
+                density: { enable: false },
+                value: 25 
               },
-              opacity: { value: 0.3 },
+              opacity: { value: 0.25 },
               shape: { type: "circle" },
               size: { value: { min: 1, max: 2 } },
             },
@@ -67,7 +66,7 @@ const Hero = () => {
       </div>
 
       <div className="hero-content">
-        {/* Left side — split into top and bottom for mobile ordering */}
+        {/* Left side */}
         <motion.div
           className="hero-left"
           initial={{ opacity: 0, y: 30 }}
@@ -91,23 +90,15 @@ const Hero = () => {
               </h1>
             </div>
 
-            <motion.div
-              className="hero-roles"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 0.6 }}
-            >
+            <div className="hero-roles">
               <div className="role-badge">UI/UX Designer</div>
               <div className="role-dot"></div>
               <div className="role-badge">Brand Strategist</div>
               <div className="role-dot"></div>
               <div className="role-badge">Visual Artist</div>
-            </motion.div>
+            </div>
 
-            <motion.div className="hero-stats"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.8, ease: "easeOut" }}>
+            <div className="hero-stats">
               <div className="hero-stat-card">
                 <span className="stat-num">2+</span>
                 <span className="stat-label">Years Exp.</span>
@@ -120,30 +111,22 @@ const Hero = () => {
                 <span className="stat-num">U.G.</span>
                 <span className="stat-label">Urban Gujarat</span>
               </div>
-            </motion.div>
+            </div>
           </div>
 
-          {/* === MOBILE IMAGE SLOT — image renders here on mobile via CSS === */}
+          {/* === MOBILE IMAGE SLOT === */}
           <div className="hero-mobile-image-slot">
-            <motion.div
-              className="hero-image-container"
-              initial={{ opacity: 0, scale: 0.9 }}
-              animate={{ opacity: 1, scale: 1 }}
-              transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-            >
+            <div className="hero-image-container">
               <div className="hero-image-polygon">
-                <img src="/avinash_profile.jpeg" alt="Avinash" className="hero-img-inner" />
+                <img src="/avinash_profile.jpeg" alt="Avinash" className="hero-img-inner" loading="eager" decoding="async" />
               </div>
               <div className="hero-image-border"></div>
-            </motion.div>
+            </div>
           </div>
 
           {/* === BOTTOM BLOCK: quote + buttons === */}
           <div className="hero-bottom-block">
-            <motion.div className="hero-quote-wrap"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              transition={{ delay: 1.0 }}>
+            <div className="hero-quote-wrap">
               <span className="hero-quote">
                 <TypeAnimation
                   sequence={[
@@ -157,14 +140,9 @@ const Hero = () => {
                   repeat={Infinity}
                 />
               </span>
-            </motion.div>
+            </div>
 
-            <motion.div
-              className="hero-btns"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2 }}
-            >
+            <div className="hero-btns">
               <Magnetic>
                 <button className="btn-primary" onClick={() => scrollTo('projects')}>
                   View Projects <FiArrowRight size={18} />
@@ -175,57 +153,48 @@ const Hero = () => {
                   Contact Me <FiMail size={18} />
                 </button>
               </Magnetic>
-            </motion.div>
+            </div>
           </div>
         </motion.div>
 
-        {/* Right side - profile image (DESKTOP only, hidden on mobile) */}
+        {/* Right side - profile image (DESKTOP only) */}
         <motion.div
           className="hero-right"
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+          transition={{ duration: 0.8, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
         >
           <div className="hero-image-container">
             <div className="hero-image-polygon">
-              <img src="/avinash_profile.jpeg" alt="Avinash" className="hero-img-inner" />
+              <img src="/avinash_profile.jpeg" alt="Avinash" className="hero-img-inner" loading="eager" decoding="async" />
             </div>
             <div className="hero-image-border"></div>
 
-            {/* Custom floating pills */}
-            <motion.div className="hero-pill pill-1"
-              animate={{ y: [0, -15, 0], rotate: [-2, 2, -2] }}
-              transition={{ repeat: Infinity, duration: 4, ease: 'easeInOut' }}>
+            {/* Pills — now CSS animated, no framer-motion per-frame cost */}
+            <div className="hero-pill pill-1">
               <div className="pill-color" style={{ background: 'var(--accent-purple)' }}></div>
               <span>UI/UX Master</span>
-            </motion.div>
+            </div>
 
-            <motion.div className="hero-pill pill-2"
-              animate={{ y: [0, 15, 0], rotate: [2, -2, 2] }}
-              transition={{ repeat: Infinity, duration: 5, ease: 'easeInOut', delay: 0.5 }}>
+            <div className="hero-pill pill-2">
               <div className="pill-color" style={{ background: 'var(--accent-cyan)' }}></div>
               <span>Figma Pro</span>
-            </motion.div>
+            </div>
 
-            <motion.div className="hero-pill pill-3"
-              animate={{ y: [0, -10, 0], x: [0, 5, 0] }}
-              transition={{ repeat: Infinity, duration: 4.5, ease: 'easeInOut', delay: 1 }}>
+            <div className="hero-pill pill-3">
               <div className="pill-color" style={{ background: 'var(--accent-pink)' }}></div>
               <span>Visual Design</span>
-            </motion.div>
+            </div>
           </div>
         </motion.div>
       </div>
 
-      <motion.button
-        className="scroll-indicator"
+      <button
+        className="scroll-indicator scroll-bounce"
         onClick={() => scrollTo('about')}
-        initial={{ x: "-50%", y: 0 }}
-        animate={{ x: "-50%", y: [0, 10, 0] }}
-        transition={{ repeat: Infinity, duration: 2, ease: "easeInOut" }}
       >
         <FiChevronDown size={28} />
-      </motion.button>
+      </button>
     </section>
   );
 };

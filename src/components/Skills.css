@@ -1,3 +1,8 @@
+.skills-section {
+  content-visibility: auto;
+  contain-intrinsic-size: 0 700px;
+}
+
 .skills-wrapper {
   display: grid;
   grid-template-columns: 1fr 400px;
@@ -74,7 +79,9 @@
   border: 1px solid var(--border-color);
   padding: 40px;
   border-radius: 24px;
-  backdrop-filter: blur(12px);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  will-change: transform;
 }
 .linear-skills-title {
   font-family: var(--font-heading);

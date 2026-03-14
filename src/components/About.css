@@ -1,4 +1,8 @@
-.about-section { background: var(--bg-secondary); }
+.about-section { 
+  background: var(--bg-secondary);
+  content-visibility: auto;
+  contain-intrinsic-size: 0 800px;
+}
 
 /* Section header handled globally in index.css */
 

@@ -30,19 +30,27 @@ const Navbar = () => {
   const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 50);
+    let ticking = false;
 
-      // Section spy
-      const current = allSections.find(section => {
-        const el = document.getElementById(section.id);
-        if (el) {
-          const rect = el.getBoundingClientRect();
-          return rect.top <= 250 && rect.bottom >= 250;
-        }
-        return false;
-      });
-      if (current) setActive(current.id);
+    const handleScroll = () => {
+      if (!ticking) {
+        requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 50);
+
+          // Section spy
+          const current = allSections.find(section => {
+            const el = document.getElementById(section.id);
+            if (el) {
+              const rect = el.getBoundingClientRect();
+              return rect.top <= 250 && rect.bottom >= 250;
+            }
+            return false;
+          });
+          if (current) setActive(current.id);
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
 
     window.addEventListener('scroll', handleScroll, { passive: true });
