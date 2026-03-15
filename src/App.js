@@ -19,8 +19,15 @@ const InstallPrompt = () => {
   const [showPrompt, setShowPrompt] = useState(false);
 
   useEffect(() => {
+    // Check if it already fired and was captured globally
+    if (window.deferredPWAInstallPrompt) {
+      setDeferredPrompt(window.deferredPWAInstallPrompt);
+      setShowPrompt(true);
+    }
+
     const handler = (e) => {
       e.preventDefault();
+      window.deferredPWAInstallPrompt = e;
       setDeferredPrompt(e);
       // Show prompt sooner
       setShowPrompt(true);
@@ -69,8 +76,33 @@ function App() {
     } else {
       document.body.style.overflow = '';
     }
+
+    // Security Layer - Prevent right-click, copy, drag, and print shortcuts
+    const preventAction = (e) => e.preventDefault();
+    const preventKeys = (e) => {
+      // Prevent F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U, Ctrl+S, Ctrl+P, Ctrl+C
+      if (
+        e.key === 'F12' ||
+        (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
+        (e.ctrlKey && (e.key === 'U' || e.key === 'S' || e.key === 'P' || e.key === 'C')) ||
+        (e.metaKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C')) ||
+        (e.metaKey && (e.key === 'U' || e.key === 'S' || e.key === 'P' || e.key === 'C'))
+      ) {
+        e.preventDefault();
+      }
+    };
+
+    document.addEventListener('contextmenu', preventAction);
+    document.addEventListener('copy', preventAction);
+    document.addEventListener('dragstart', preventAction);
+    document.addEventListener('keydown', preventKeys);
+
     return () => {
       document.body.style.overflow = '';
+      document.removeEventListener('contextmenu', preventAction);
+      document.removeEventListener('copy', preventAction);
+      document.removeEventListener('dragstart', preventAction);
+      document.removeEventListener('keydown', preventKeys);
     };
   }, [loading]);
 
@@ -100,23 +132,23 @@ function App() {
 
   if (loading) {
     const messageIndex = Math.min(Math.floor((progress / 100) * loadingMessages.length), loadingMessages.length - 1);
-    
+
     return (
       <div className={`loading-screen ${fadeOut ? 'curtain-exit' : ''}`}>
         {/* Entrance Curtains */}
         <div className="loader-curtain curtain-left"></div>
         <div className="loader-curtain curtain-right"></div>
-        
+
         <div className="loading-content">
           <div className="logo-box">
-             <svg className="premium-loader-svg" viewBox="0 0 100 100">
-                <circle className="logo-ring" cx="50" cy="50" r="48" />
-                <path className="logo-path logo-a" d="M50 15L15 75H35L50 49L65 75H85L50 15Z" fill="var(--text-primary)" />
-                <path className="logo-path logo-v" d="M50 85L85 25H65L50 51L35 25H15L50 85Z" fill="var(--accent-cyan)" />
-             </svg>
-             <div className="logo-glow"></div>
+            <svg className="premium-loader-svg" viewBox="0 0 100 100">
+              <circle className="logo-ring" cx="50" cy="50" r="48" />
+              <path className="logo-path logo-a" d="M50 15L15 75H35L50 49L65 75H85L50 15Z" fill="var(--text-primary)" />
+              <path className="logo-path logo-v" d="M50 85L85 25H65L50 51L35 25H15L50 85Z" fill="var(--accent-cyan)" />
+            </svg>
+            <div className="logo-glow"></div>
           </div>
-          
+
           <div className="loading-brand-wrap">
             <div className="loading-brand-glitch" data-text="AVINASH">AVINASH</div>
             <div className="loading-sub-text">Digital Visionary</div>

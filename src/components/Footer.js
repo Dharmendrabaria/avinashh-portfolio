@@ -37,7 +37,7 @@ const Footer = () => {
           <div className="footer-links-group">
             <h4>Navigate</h4>
             <ul>
-              {['home','about','skills','projects','services','gallery','contact'].map(id => (
+              {['home', 'about', 'skills', 'projects', 'services', 'gallery', 'contact'].map(id => (
                 <li key={id}>
                   <button onClick={() => scrollTo(id)}>
                     {id.charAt(0).toUpperCase() + id.slice(1)}
@@ -50,7 +50,7 @@ const Footer = () => {
           <div className="footer-links-group">
             <h4>Services</h4>
             <ul>
-              {['UI/UX Design','Website Design','Mobile App Design','Logo Design','Brand Identity','Social Media'].map(s => (
+              {['UI/UX Design', 'Website Design', 'Mobile App Design', 'Logo Design', 'Brand Identity', 'Social Media'].map(s => (
                 <li key={s}><span>{s}</span></li>
               ))}
             </ul>

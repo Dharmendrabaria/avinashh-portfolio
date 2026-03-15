@@ -20,17 +20,20 @@ export const useTheme = () => useContext(ThemeContext);
 export const useFadeInOnScroll = () => {
   const ref = useRef(null);
   useEffect(() => {
+    // Tighter margin for mobile so animation starts exactly when entering screen
+    const IS_MOBILE = window.innerWidth <= 768;
+    const margin = IS_MOBILE ? '10px 0px -10px 0px' : '150px 0px 150px 0px';
+    
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (entry.isIntersecting) {
           entry.target.classList.add('is-visible');
-          // Important: Stop observing once visible to save CPU
           observer.unobserve(entry.target);
         }
       },
       { 
-        threshold: 0.1,
-        rootMargin: '50px 0px 50px 0px' 
+        threshold: IS_MOBILE ? 0.05 : 0.02,
+        rootMargin: margin
       }
     );
     if (ref.current) observer.observe(ref.current);

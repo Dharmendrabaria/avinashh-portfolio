@@ -9,6 +9,7 @@ const Contact = () => {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [successMessage, setSuccessMessage] = useState('');
   const headerRef = useFadeInOnScroll();
+  const connectRef = useFadeInOnScroll();
   const formRef = useFadeInOnScroll();
 
   const handleChange = (e) => {
@@ -20,16 +21,17 @@ const Contact = () => {
     setIsSubmitting(true);
     setSuccessMessage('');
     
-    const rawMessage = `OFFICIAL DESIGN INQUIRY
--------------------------
-Sender: ${formData.name}
-Email: ${formData.email}
+    const rawMessage = `Hello Avinash,
 
-Message Body:
+I am ${formData.name}. I am highly interested in your design portfolio and would like to discuss a potential project or opportunity with you.
+
+Details:
 ${formData.message}
 
--------------------------
-This message was generated from your professional portfolio contact form.`;
+Please reach out to me at your earliest convenience at: ${formData.email}.
+
+Best Regards,
+${formData.name}`;
 
     const textEncoded = encodeURIComponent(rawMessage);
     
@@ -53,7 +55,7 @@ This message was generated from your professional portfolio contact form.`;
     <section id="contact" className="contact-section">
       <div className="container">
         
-        <div className="section-header is-visible" style={{ textAlign: 'center', marginBottom: '60px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div className="section-header reveal slide-up" ref={headerRef} style={{ textAlign: 'center', marginBottom: '60px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <div className="section-tag" style={{ borderColor: 'rgba(6,214,160,0.25)', color: 'var(--accent-green)', background: 'rgba(6,214,160,0.1)', margin: '0 auto 22px' }}>
             <FiMail size={14} />
             <span>Get in Touch</span>
@@ -66,7 +68,7 @@ This message was generated from your professional portfolio contact form.`;
 
         <div className="contact-wrapper">
           {/* Quick Connect Cards */}
-          <div className="quick-connect" ref={formRef}>
+          <div className="quick-connect reveal slide-right" ref={connectRef}>
             <h3 className="contact-heading">Direct Channels</h3>
             
             <a href="https://wa.me/918347717938?text=Hello%20Avinash,%20I%20am%20interested%20in%20your%20professional%20design%20services.%20Can%20we%20discuss%20a%20potential%20project?" target="_blank" rel="noreferrer" className="contact-card whatsapp">
@@ -95,7 +97,7 @@ This message was generated from your professional portfolio contact form.`;
           </div>
 
           {/* Contact Form */}
-          <div className="contact-form-container glass-card" style={{ opacity: 1, visibility: 'visible' }}>
+          <div className="contact-form-container glass-card reveal slide-left" ref={formRef}>
             <h3 className="contact-heading">Send a Message</h3>
             <form onSubmit={handleSubmit} className="contact-form">
               <div className="input-group">
@@ -128,15 +130,13 @@ This message was generated from your professional portfolio contact form.`;
                 <div className="input-glow"></div>
               </div>
 
-              <Magnetic>
-                <button type="submit" className="btn-primary form-btn" disabled={isSubmitting}>
-                  {isSubmitting ? (
-                    <><FiLoader className="spin" /> Processing...</>
-                  ) : (
-                    <>Send Message <FiSend size={18} /></>
-                  )}
-                </button>
-              </Magnetic>
+              <button type="submit" className="btn-primary form-btn" disabled={isSubmitting}>
+                {isSubmitting ? (
+                  <><FiLoader className="spin" /> Processing...</>
+                ) : (
+                  <>Send Message <FiSend size={18} /></>
+                )}
+              </button>
 
               {successMessage && (
                 <div className="form-success-msg" style={{ marginTop: '20px', padding: '15px', borderRadius: '10px', background: 'rgba(6,214,160,0.1)', border: '1px solid rgba(6,214,160,0.3)', color: 'var(--accent-green)', fontSize: '0.95rem', display: 'flex', alignItems: 'center', gap: '10px', animation: 'fadeIn 0.4s forwards' }}>

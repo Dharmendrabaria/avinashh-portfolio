@@ -52,8 +52,8 @@ const Cursor = () => {
       }
 
       // Handle hidden
-      const shouldHide = target.closest('.modal-close') || 
-        target.closest('.lightbox-close') || 
+      const shouldHide = target.closest('.modal-close') ||
+        target.closest('.lightbox-close') ||
         target.closest('.lightbox-nav');
       cursor.style.opacity = shouldHide ? '0' : '1';
     };

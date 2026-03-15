@@ -40,7 +40,7 @@ const Services = () => {
   return (
     <section id="services" className="services-section">
       <div className="container">
-        <div className="section-header reveal slide-up is-visible" ref={headerRef} style={{ textAlign: 'center', marginBottom: '60px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <div className="section-header reveal slide-up" ref={headerRef} style={{ textAlign: 'center', marginBottom: '60px', width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
           <div className="section-tag" style={{ borderColor: 'rgba(6,214,247,0.25)', color: 'var(--accent-cyan)', background: 'rgba(6,214,247,0.1)', margin: '0 auto 22px' }}>
             <FiLayers size={14} />
             <span>Specializations</span>

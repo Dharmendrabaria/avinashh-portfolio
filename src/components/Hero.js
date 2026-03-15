@@ -6,9 +6,12 @@ import Particles from "react-tsparticles";
 import { loadSlim } from "tsparticles-slim";
 import { TypeAnimation } from 'react-type-animation';
 import Magnetic from './Magnetic';
+import { useFadeInOnScroll } from '../context/ThemeContext';
 import './Hero.css';
 
 const Hero = () => {
+  const statsRef = useFadeInOnScroll();
+  const rolesRef = useFadeInOnScroll();
   const particlesInit = useCallback(async engine => {
     await loadSlim(engine);
   }, []);
@@ -34,24 +37,24 @@ const Hero = () => {
             },
             particles: {
               color: { value: ["#06d6f7", "#6200ea"] },
-              links: { 
-                color: "random", 
-                distance: 100, 
-                enable: true, 
-                opacity: 0.08, 
-                width: 1 
+              links: {
+                color: "random",
+                distance: 100,
+                enable: true,
+                opacity: 0.08,
+                width: 1
               },
-              move: { 
-                direction: "none", 
-                enable: true, 
-                outModes: { default: "bounce" }, 
-                random: false, 
-                speed: 0.6, 
-                straight: false 
+              move: {
+                direction: "none",
+                enable: true,
+                outModes: { default: "bounce" },
+                random: false,
+                speed: 0.6,
+                straight: false
               },
-              number: { 
+              number: {
                 density: { enable: false },
-                value: 25 
+                value: 25
               },
               opacity: { value: 0.25 },
               shape: { type: "circle" },
@@ -90,7 +93,7 @@ const Hero = () => {
               </h1>
             </div>
 
-            <div className="hero-roles">
+            <div className="hero-roles reveal slide-up" ref={rolesRef}>
               <div className="role-badge">UI/UX Designer</div>
               <div className="role-dot"></div>
               <div className="role-badge">Brand Strategist</div>
@@ -98,7 +101,7 @@ const Hero = () => {
               <div className="role-badge">Visual Artist</div>
             </div>
 
-            <div className="hero-stats">
+            <div className="hero-stats reveal slide-up" ref={statsRef}>
               <div className="hero-stat-card">
                 <span className="stat-num">2+</span>
                 <span className="stat-label">Years Exp.</span>
@@ -143,16 +146,12 @@ const Hero = () => {
             </div>
 
             <div className="hero-btns">
-              <Magnetic>
-                <button className="btn-primary" onClick={() => scrollTo('projects')}>
-                  View Projects <FiArrowRight size={18} />
-                </button>
-              </Magnetic>
-              <Magnetic>
-                <button className="btn-secondary" onClick={() => scrollTo('contact')}>
-                  Contact Me <FiMail size={18} />
-                </button>
-              </Magnetic>
+              <button className="btn-primary" onClick={() => scrollTo('projects')}>
+                View Projects <FiArrowRight size={18} />
+              </button>
+              <button className="btn-secondary" onClick={() => scrollTo('contact')}>
+                Contact Me <FiMail size={18} />
+              </button>
             </div>
           </div>
         </motion.div>

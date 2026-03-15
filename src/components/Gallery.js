@@ -43,7 +43,7 @@ const Gallery = () => {
   return (
     <section id="gallery" className="gallery-section">
       <div className="container">
-        <div className="section-header is-visible" style={{ marginBottom: '60px' }}>
+        <div className="section-header reveal slide-up" ref={headerRef} style={{ marginBottom: '60px' }}>
           <div className="section-tag" style={{ borderColor: 'rgba(247,37,133,0.25)', color: 'var(--accent-pink)', background: 'rgba(247,37,133,0.1)' }}>
             <FiImage size={14} />
             <span>Creative Shots</span>

@@ -95,11 +95,9 @@ const Navbar = () => {
           <button className="theme-toggle" onClick={toggleTheme}>
             {theme === 'dark' ? <FiSun size={20} /> : <FiMoon size={20} />}
           </button>
-          <Magnetic>
-            <button className="nav-hire-btn" onClick={() => scrollTo('contact')}>
-              <span>Hire Me</span>
-            </button>
-          </Magnetic>
+          <button className="nav-hire-btn" onClick={() => scrollTo('contact')}>
+            <span>Hire Me</span>
+          </button>
         </div>
       </nav>
 
@@ -116,11 +114,9 @@ const Navbar = () => {
           <button className="mobile-theme-toggle" onClick={toggleTheme} aria-label="Toggle theme">
             {theme === 'dark' ? <FiSun size={18} /> : <FiMoon size={18} />}
           </button>
-          <Magnetic>
-            <button className="mobile-hire-btn" onClick={() => scrollTo('contact')}>
-              Hire Me
-            </button>
-          </Magnetic>
+          <button className="mobile-hire-btn" onClick={() => scrollTo('contact')}>
+            Hire Me
+          </button>
         </div>
       </div>
 
