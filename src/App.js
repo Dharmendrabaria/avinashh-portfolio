@@ -22,15 +22,16 @@ const InstallPrompt = () => {
     // Check if it already fired and was captured globally
     if (window.deferredPWAInstallPrompt) {
       setDeferredPrompt(window.deferredPWAInstallPrompt);
-      setShowPrompt(true);
+      // Delay showing it for better UX
+      setTimeout(() => setShowPrompt(true), 3000);
     }
 
     const handler = (e) => {
       e.preventDefault();
       window.deferredPWAInstallPrompt = e;
       setDeferredPrompt(e);
-      // Show prompt sooner
-      setShowPrompt(true);
+      // Delay showing it
+      setTimeout(() => setShowPrompt(true), 5000);
     };
     window.addEventListener('beforeinstallprompt', handler);
     return () => window.removeEventListener('beforeinstallprompt', handler);
@@ -52,12 +53,34 @@ const InstallPrompt = () => {
   if (!showPrompt) return null;
 
   return (
-    <div className="install-prompt is-visible">
-      <div className="pwa-icon">✨</div>
-      <p><strong>Experience the Magic!</strong> Install this portfolio app for a faster & premium experience.</p>
+    <div className={`install-prompt ${showPrompt ? 'is-visible' : ''}`}>
+      <button className="close-prompt" onClick={handleDismiss} aria-label="Close">
+        <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" strokeWidth="2.5" fill="none">
+          <path d="M18 6L6 18M6 6l12 12" />
+        </svg>
+      </button>
+      <div className="pwa-content">
+        <div className="pwa-icon-wrapper">
+          <div className="pwa-icon">
+            <svg viewBox="0 0 100 100" width="40" height="40">
+              <circle cx="50" cy="50" r="48" fill="var(--accent-cyan)" fillOpacity="0.1" stroke="var(--accent-cyan)" strokeWidth="2" />
+              <path d="M50 30L30 70H70L50 30Z" fill="var(--text-primary)" />
+            </svg>
+          </div>
+          <div className="pwa-badge">PRO</div>
+        </div>
+        <div className="pwa-text">
+          <h3>Install App</h3>
+          <p>Get a faster & seamless experience by adding <strong>Avinash</strong> to your home screen.</p>
+        </div>
+      </div>
       <div className="install-prompt-btns">
-        <button className="install-btn dismiss" onClick={handleDismiss}>Not now</button>
-        <button className="install-btn confirm" onClick={handleInstall}>Install Now</button>
+        <button className="install-btn confirm" onClick={handleInstall}>
+          <span>Install Now</span>
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" strokeWidth="2.5">
+            <path d="M5 12h14m-7-7l7 7-7 7" />
+          </svg>
+        </button>
       </div>
     </div>
   );
